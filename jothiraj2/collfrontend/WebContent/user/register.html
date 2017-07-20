@@ -1,0 +1,215 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+@import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
+
+/* body{
+	margin: 20px;
+	padding: 50px;
+	background: #fff;
+
+	color: #fff;
+	font-family: Arial;
+	font-size: 30px;
+} */
+
+.body{
+	position: absolute;
+	top: 70px;
+	left: 10px;
+	right: 10px;
+	bottom: 0px;
+	width: auto;
+	height: auto;
+	background-image: url(http://ginva.com/wp-content/uploads/2012/07/city-skyline-wallpapers-008.jpg);
+	background-size: 100%;
+	-webkit-filter: blur(5px);
+	z-index: 1;
+	 background-repeat: no-repeat;
+}
+
+.grad{
+	position: absolute;
+	top: -20px;
+	left: -20px;
+	right: -40px;
+	bottom: -40px;
+	width: auto;
+	height: auto;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.65))); /* Chrome,Safari4+ */
+	z-index: 1;
+	opacity: 0.7;
+}
+
+.header{
+	position: absolute;
+	top: calc(20% - 35px);
+	left: calc(20% - 255px);
+	z-index: 2;
+}
+
+.header div{
+	float: left;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 35px;
+	font-weight: 500;
+}
+
+.header div span{
+	color: #5379fa !important;
+}
+
+.signup{
+	position: absolute;
+	top: calc(30% - 75px);
+	left: calc(50% - 100px);
+	height: 150px;
+	width: 350px;
+	padding: 10px;
+	z-index: 2;
+}
+
+.signup input[type=text]{
+	width: 350px;
+	height: 50px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 10px;
+	color: black;
+	font-family: 'Exo', sans-serif;
+	font-size: 30px;
+	font-weight: 400;
+	padding: 4px;
+	margin-top: 10px;
+}
+
+.signup input[type=password]{
+	width: 350px;
+	height: 50px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 10px;
+	color: black;
+	font-family: 'Exo', sans-serif;
+	font-size: 30px;
+	font-weight: 400;
+	padding: 4px;
+	margin-top: 10px;
+}
+.signup input[type=date]{
+	width: 350px;
+	height: 50px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 10px;
+	color: black;
+	font-family: 'Exo', sans-serif;
+	font-size: 30px;
+	font-weight: 400;
+	padding: 4px;
+	margin-top: 10px;
+}
+
+.signup input[type=button]{
+	width: 160px;
+	height: 35px;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 10px;
+	color: black;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 6px;
+	margin-top: 10px;
+}
+
+.signup input[type=button]:hover{
+	opacity: 0.8;
+}
+
+.signup input[type=button]:active{
+	opacity: 0.6;
+}
+
+.signup input[type=text]:focus{
+	outline: none;
+	border: 1px solid rgba(255,255,255,0.9);
+}
+
+.signup input[type=password]:focus{
+	outline: none;
+	border: 1px solid rgba(255,255,255,0.9);
+}
+
+.signup input[type=button]:focus{
+	outline: none;
+}
+
+::-webkit-input-placeholder{
+   color:black;
+}
+
+::-moz-input-placeholder{
+   color: black;
+}
+select
+{
+    width: 350px;
+	height: 50px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 10px;
+	color: black;
+	font-family: 'Exo', sans-serif;
+	font-size: 30px;
+	font-weight: 400;
+	padding: 4px;
+	margin-top: 10px;
+}
+.signup input[type=submit]{
+	width: 160px;
+	height: 35px;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 10px;
+	color: black;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 6px;
+	margin-top: 10px;
+}
+
+</style>
+</head>
+<body >
+
+<div class="body"></div>
+		<div class="grad"></div>
+		<div class="header">
+			<div>Register<span>Here</span></div>
+		</div>
+		<br><form ng-submit="uc.submit()">
+		<div class="signup">
+				<input type="text" placeholder="USER NAME" name="user_name" required ng-model="uc.user.user_name"><br>
+				 <input type="text" placeholder="FIRST NAME" name="first_name" required ng-model="uc.user.first_name"><br>
+				<input type="text" placeholder="LAST NAME" name="last_name" required ng-model="uc.user.last_name"><br>
+				<input type="password" placeholder="PASSWORD" name="password" required ng-model="uc.user.password"><br>
+				<input type="text" placeholder="EMAIL ID" name="email_id" required ng-model="uc.user.email_id"><br>
+				<input type="date" name="dob" required ng-model="uc.user.dob"><br>
+				<div><select placeholder="ROLE" ng-model="uc.user.role"  ><br>
+				    <option value="READER">News-reader</option>
+				    <option value="INDUSTRY">Industry</option>
+					<option value="HR">HR</option>
+					</select><br></div>
+				<input name="submit" type="submit" value="Register">
+		</div>
+		</form>
+</body>
+</html>

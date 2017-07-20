@@ -1,0 +1,178 @@
+ 
+
+
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+@import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
+
+/* body{
+	margin: 20px;
+	padding: 50px;
+	background: #fff;
+
+	color: #fff;
+	font-family: Arial;
+	font-size: 30px;
+} */
+
+.body{
+	position: absolute;
+	top: 70px;
+	left: 10px;
+	right: 10px;
+	bottom: 0px;
+	width: auto;
+	height: auto;
+	background-image: url(http://ginva.com/wp-content/uploads/2012/07/city-skyline-wallpapers-008.jpg);
+	background-size: 100%;
+	-webkit-filter: blur(5px);
+	z-index: 1;
+	 background-repeat: no-repeat;
+}
+
+.grad{
+	position: absolute;
+	top: -20px;
+	left: -20px;
+	right: -40px;
+	bottom: -40px;
+	width: auto;
+	height: auto;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.65))); /* Chrome,Safari4+ */
+	z-index: 1;
+	opacity: 0.7;
+}
+
+.header{
+	position: absolute;
+	top: calc(20% - 35px);
+	left: calc(20% - 255px);
+	z-index: 2;
+}
+
+.header div{
+	float: left;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 35px;
+	font-weight: 500;
+}
+
+.header div span{
+	color: #5379fa !important;
+}
+
+.login{
+	position: absolute;
+	top: calc(50% - 75px);
+	left: calc(50% - 50px);
+	height: 150px;
+	width: 350px;
+	padding: 10px;
+	z-index: 2;
+}
+
+.login input[type=text]{
+	width: 350px;
+	height: 50px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 10px;
+	color: red;
+	font-family: 'Exo', sans-serif;
+	font-size: 30px;
+	font-weight: 400;
+	padding: 4px;
+}
+
+.login input[type=password]{
+	width: 350px;
+	height: 50px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 10px;
+	color: red;
+	font-family: 'Exo', sans-serif;
+	font-size: 30px;
+	font-weight: 400;
+	padding: 4px;
+	margin-top: 10px;
+}
+
+.login input[type=button]{
+	width: 160px;
+	height: 35px;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 10px;
+	color: black;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 6px;
+	margin-top: 10px;
+}
+
+.login input[type=button]:hover{
+	opacity: 0.8;
+}
+
+.login input[type=button]:active{
+	opacity: 0.6;
+}
+
+.login input[type=text]:focus{
+	outline: none;
+	border: 1px solid rgba(255,255,255,0.9);
+}
+
+.login input[type=password]:focus{
+	outline: none;
+	border: 1px solid rgba(255,255,255,0.9);
+}
+
+.login input[type=button]:focus{
+	outline: none;
+}
+
+::-webkit-input-placeholder{
+   color:black;
+}
+
+::-moz-input-placeholder{
+   color: black;
+}
+</style>
+</head>
+<body >
+<div class="container">
+	
+
+	<div ng-show='ctrl.user.errorMessage'>
+		<div class="alert alert-danger fade in">
+			{{message}}</div>
+
+	</div>
+	
+<div class="body"></div>
+		<div class="grad"></div>
+		<div class="header">
+			<div>Login<span>Here</span></div>
+		</div>
+		<form ng-submit="uc.login()">
+		<br>
+		<div class="login">
+				<input type="text" placeholder="Email Id" name="user" ng-model="uc.user.email_id"><br>
+				<input type="password" placeholder="password" name="password" ng-model="uc.user.password"><br>
+				<input type="button" value="Login">
+		</div>
+		</form>
+		</div>
+</body>
+</html>
+
