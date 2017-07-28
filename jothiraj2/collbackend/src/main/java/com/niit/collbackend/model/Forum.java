@@ -22,6 +22,7 @@ public class Forum
 	private String description;
 	private Date forumDate;
 	private String status;
+	private String user_name;
 	public int getForumid() {
 		return forumid;
 	}
@@ -57,5 +58,11 @@ public class Forum
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
 	}
 }

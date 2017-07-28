@@ -44,8 +44,8 @@ public class UserTestCase
 		
 		
 		/* BlogDATA */
-		blog.setBlog_name("");
-		blog.setUser_id(1);
+		blog.setTitle("");
+		blog.setUserId(1);
 		blog.setEmail_Id("");
 		blog.setUser_name("");
 		blog.setStatus("N");
@@ -55,7 +55,7 @@ public class UserTestCase
 		
 		
 		/* BlogComment */
-		blogComment.setBlog_name("AngularJS");
+		blogComment.setTitle("AngularJS");
 		blogComment.setMessage("message");
 		blogComment.setUser_id(1);
 		blogComment.setUser_name("Kishore");
@@ -99,7 +99,7 @@ public class UserTestCase
 		user.setPassword("123");
 		user.setEmail_id("jothiraj34@gmail.com");
 		user.setDob("19-10-1993");
-		user.setRole("User");
+		user.setRole("READER");
 		user.setStatus("V");
 		user.setIs_online("is_online");
 

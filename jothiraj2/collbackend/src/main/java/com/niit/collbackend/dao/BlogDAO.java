@@ -16,14 +16,13 @@ public interface BlogDAO {
 
 	public Blog getByuId(int user_id);
 
-	public Blog getbyemailId(String email_Id);
-
+	
 	public void save(Blog blog);
 
 	public Blog delete(int blogId);
 
 	public void saveOrUpdate(Blog blog);
 	
-	public Blog getByBlogName(String blog_name);
+	public Blog getByBlogName(String title);
 
 }

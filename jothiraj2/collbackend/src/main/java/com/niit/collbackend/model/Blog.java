@@ -1,7 +1,9 @@
 package com.niit.collbackend.model;
 
-import java.sql.Date;
+import java.util.Date;
 
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,12 +20,15 @@ public class Blog {
 	private int blogId;
 	
 	
-	private String blog_name;
+
 	private String title;
+	@Column(length = 2000)
 	private String description;
-	private int user_id;
+	private int userId;
 	private String email_Id;
 	private String user_name;
+	
+	
 	private Date createdate;
 	private String Status;
 	private int likes;
@@ -34,18 +39,8 @@ public class Blog {
 	public void setBlogId(int blogId) {
 		this.blogId = blogId;
 	}
-	public String getBlog_name() {
-		return blog_name;
-	}
-	public void setBlog_name(String blog_name) {
-		this.blog_name = blog_name;
-	}
-	public int getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
+	
+	
 	public String getEmail_Id() {
 		return email_Id;
 	}
@@ -87,6 +82,12 @@ public class Blog {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	
 }

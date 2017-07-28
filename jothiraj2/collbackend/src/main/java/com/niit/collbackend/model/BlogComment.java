@@ -17,7 +17,7 @@ public class BlogComment {
 	@GeneratedValue
 	private int blogId;
 	
-	private String blog_name;
+	private String title;
 	private String message;
 	private Date commentdate;
 	private int user_id;
@@ -30,12 +30,7 @@ public class BlogComment {
 	public void setBlogId(int blogId) {
 		this.blogId = blogId;
 	}
-	public String getBlog_name() {
-		return blog_name;
-	}
-	public void setBlog_name(String blog_name) {
-		this.blog_name = blog_name;
-	}
+	
 	public String getMessage() {
 		return message;
 	}
@@ -66,5 +61,12 @@ public class BlogComment {
 	public void setEmail_Id(String email_Id) {
 		this.email_Id = email_Id;
 	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
 
 }

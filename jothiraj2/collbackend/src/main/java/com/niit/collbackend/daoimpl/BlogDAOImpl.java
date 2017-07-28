@@ -56,8 +56,8 @@ public class BlogDAOImpl implements BlogDAO {
 
 		return blogList;
 	}
-	public Blog getByuId(int user_id) {
-		String hql = "from Blog where user_id=" + "'" + user_id + "'";
+	public Blog getByuId(int userId) {
+		String hql = "from Blog where userId=" + "'" + userId + "'";
 		org.hibernate.Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		List<Blog> blogList = (List<Blog>) query.list();
 		if (blogList != null && !blogList.isEmpty()) {
@@ -66,10 +66,7 @@ public class BlogDAOImpl implements BlogDAO {
 
 		return null;
 	}
-	public Blog getbyemailId(String email_Id) {
-
-		return null;
-	}
+	
 
 	public void save(Blog blog) {
 		sessionFactory.getCurrentSession().save(blog);
@@ -90,8 +87,8 @@ public class BlogDAOImpl implements BlogDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Blog getByBlogName(String blog_name) {
-		String hql = "from Blog where blog_name=" + "'" + blog_name + "'";
+	public Blog getByBlogName(String title) {
+		String hql = "from Blog where title=" + "'" + title + "'";
 		org.hibernate.Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		List<Blog> blogList = (List<Blog>) query.list();
 		if (blogList != null && !blogList.isEmpty()) {

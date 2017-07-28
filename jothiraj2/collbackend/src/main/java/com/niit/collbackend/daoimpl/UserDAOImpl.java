@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -84,4 +85,31 @@ public class UserDAOImpl implements UserDAO
 		
 		return listUser;
 	}
+
+	@Transactional
+	public User login(User user) {
+
+		System.out.println(user.getEmail_id());
+		System.out.println(user.getPassword());
+		String hql = "from User where email_id=" + "'" + user.getEmail_id() + "'and password = " + "'" + user.getPassword()
+				+ "'";
+
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+
+		@SuppressWarnings("unchecked")
+		List<User> list = (List<User>) query.list();
+
+		if (list != null && !list.isEmpty()) {
+			return list.get(0);
+
+		}
+		return null;
+	}
+
+	@Transactional
+	public void save(User user) {
+		sessionFactory.getCurrentSession().save(user);
+	}
+
+	
 }
