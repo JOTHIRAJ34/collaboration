@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div><h4 style= "margin: 0px 0px 10px 0px; margin-left: 85%;"><a href="#blog" ng-show="currentUser.name">Create New Blog</a></h4></div>
+<div><h1 style="margin-top: 2em;">{{viewBlog.title}}</h1>
+<h5>Created by : <b>{{viewBlog.username}}</b> | Created On : <b>{{viewBlog.timeStamp}}</b></h5>
+<h4>{{viewBlog.description}}</h4></div>
+
+
+<form ng-submit="bc.createBlogComment(bc.blogcomment)">
+<div class="form-group">
+<textarea placeholder="Enter YouR ThoughT Here.."
+									class="form-control" ng-model="bc.blogcomment.bcomments"></textarea >
+				
+			<button type="submit" class="btn btn-lg btn-info">Share Ur views</button>
+</div>
+</form>
+
+
+
+
+<div ng-repeat="bcv in bct">
+
+<h3>UserName: <span ng-bind="bcv.userName"></span></h3>
+
+<!-- <td>{{cv.userName}}</td> -->
+<h5>Comment: <span ng-bind="bcv.bcomments"></span></h5>
+<hr style="clear: both;" />
+</div>
+</body>
+</html>

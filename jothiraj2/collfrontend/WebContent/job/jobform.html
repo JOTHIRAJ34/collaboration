@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
@@ -6,18 +6,7 @@
 <style>
 @import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
-
-/* body{
-	margin: 20px;
-	padding: 50px;
-	background: #fff;
-
-	color: #fff;
-	font-family: Arial;
-	font-size: 30px;
-} */
-
-.body{
+.job{
 	position: absolute;
 	top: 70px;
 	left: 10px;
@@ -31,7 +20,6 @@
 	z-index: 1;
 	 background-repeat: no-repeat;
 }
-
 .grad{
 	position: absolute;
 	top: -20px;
@@ -63,8 +51,7 @@
 .header div span{
 	color: #5379fa !important;
 }
-
-.signup{
+.jcform{
 	position: absolute;
 	top: calc(30% - 75px);
 	left: calc(50% - 100px);
@@ -74,7 +61,7 @@
 	z-index: 2;
 }
 
-.signup input[type=text]{
+.jcform input[type=text]{
 	width: 350px;
 	height: 50px;
 	background: transparent;
@@ -88,22 +75,9 @@
 	margin-top: 10px;
 }
 
-.signup input[type=password]{
+.jcform textarea{
 	width: 350px;
-	height: 50px;
-	background: transparent;
-	border: 1px solid rgba(255,255,255,0.6);
-	border-radius: 10px;
-	color: black;
-	font-family: 'Exo', sans-serif;
-	font-size: 30px;
-	font-weight: 400;
-	padding: 4px;
-	margin-top: 10px;
-}
-.signup input[type=date]{
-	width: 350px;
-	height: 50px;
+	height: 100px;
 	background: transparent;
 	border: 1px solid rgba(255,255,255,0.6);
 	border-radius: 10px;
@@ -115,7 +89,7 @@
 	margin-top: 10px;
 }
 
-.signup input[type=button]{
+.jcform input[type=submit]{
 	width: 160px;
 	height: 35px;
 	border: 1px solid #fff;
@@ -128,88 +102,74 @@
 	padding: 6px;
 	margin-top: 10px;
 }
+.jcform input[type=date]{
+	width: 350px;
+	height: 50px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 10px;
+	color: black;
+	font-family: 'Exo', sans-serif;
+	font-size: 30px;
+	font-weight: 400;
+	padding: 4px;
+	margin-top: 10px;
+}
 
-.signup input[type=button]:hover{
+.jcform input[type=submit]:hover{
 	opacity: 0.8;
 }
 
-.signup input[type=button]:active{
+.jcform input[type=submit]:active{
 	opacity: 0.6;
 }
 
-.signup input[type=text]:focus{
+.jcform input[type=text]:focus{
 	outline: none;
 	border: 1px solid rgba(255,255,255,0.9);
 }
 
-.signup input[type=password]:focus{
+.jcform input[type=textarea]:focus{
 	outline: none;
 	border: 1px solid rgba(255,255,255,0.9);
 }
 
-.signup input[type=button]:focus{
+.jcform input[type=submit]:focus{
 	outline: none;
 }
 
 ::-webkit-input-placeholder{
    color:black;
 }
-
+::-webkit-textarea-placeholder{
+   color:black;
+}
 ::-moz-input-placeholder{
    color: black;
 }
-select
-{
-    width: 350px;
-	height: 50px;
-	background: transparent;
-	border: 1px solid rgba(255,255,255,0.6);
-	border-radius: 10px;
-	color: black;
-	font-family: 'Exo', sans-serif;
-	font-size: 30px;
-	font-weight: 400;
-	padding: 4px;
-	margin-top: 10px;
+::-moz-textarea-placeholder{
+   color: black;
 }
-.signup input[type=submit]{
-	width: 160px;
-	height: 35px;
-	border: 1px solid #fff;
-	cursor: pointer;
-	border-radius: 10px;
-	color: black;
-	font-family: 'Exo', sans-serif;
-	font-size: 16px;
-	font-weight: 400;
-	padding: 6px;
-	margin-top: 10px;
-}
-
 </style>
 </head>
-<body >
-
-<div class="body"></div>
+<body>
+<div class="job"></div>
 		<div class="grad"></div>
 		<div class="header">
-			<div>Register<span>Here</span></div>
+			<div>Job<span>Form</span></div>
 		</div>
-		<br><form ng-submit="uc.submit()">
-		<div class="signup">
-				<input type="text" placeholder="USER NAME" name="user_name" required ng-model="uc.user.user_name"><br>
-				 <input type="text" placeholder="FIRST NAME" name="first_name" required ng-model="uc.user.first_name"><br>
-				<input type="text" placeholder="LAST NAME" name="last_name" required ng-model="uc.user.last_name"><br>
-				<input type="password" placeholder="PASSWORD" name="password" required ng-model="uc.user.password"><br>
-				<input type="text" placeholder="EMAIL ID" name="email_id" required ng-model="uc.user.email_id"><br>
-				<input type="date" name="dob" required ng-model="uc.user.dob"><br>
-				<div><select placeholder="ROLE" ng-model="uc.user.role"  ><br>
-				    <option value="READER">News-reader</option>
-				    <option value="INDUSTRY">Industry</option>
-					<option value="HR">HR</option>
-					</select><br></div>
-				<input name="submit" type="submit" value="Register">
+		<form ng-submit="jc.submit()">
+		<br>
+		<div class="jcform">
+				<input type="text" placeholder="Enter Title name.." rows="3" ng-model="jc.job.jobProfile"><br>
+				<textarea type="text" placeholder="Provide your job description.." rows="3" ng-model="jc.job.jobDescription"></textarea><br>
+				<input type="text" placeholder="Enter email id Here.." ng-model="jc.job.email_id" ><br>
+				<input type="text" placeholder="Enter Qualification Here.." ng-model="jc.job.qualification" ><br>
+				<input type="text" placeholder="Enter status  Here.." ng-model="jc.job.status"></textarea><br>
+				<input type="date"  ng-model="jc.job.postDate"><br>
+					<input name="submit" type="submit" value="Submit">
 		</div>
 		</form>
+
 </body>
 </html>
