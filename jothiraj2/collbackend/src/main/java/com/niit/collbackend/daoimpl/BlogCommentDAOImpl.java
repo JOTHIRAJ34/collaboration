@@ -23,6 +23,15 @@ public class BlogCommentDAOImpl implements BlogCommentDAO
 
 		this.sessionFactory = sessionFactory;
 	}
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<BlogComment> list() {
+		List<BlogComment> listBlogComment = (List<BlogComment>) sessionFactory.getCurrentSession()
+				.createCriteria(BlogComment.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		return listBlogComment;
+	}
 
 	public List<BlogComment> getById(int blogId) {
 		String hql = "from BlogComment where blogId =" + "'"+ blogId +"'";
@@ -34,33 +43,25 @@ public class BlogCommentDAOImpl implements BlogCommentDAO
 		return listBlogComment;
 	}
 
-	public void save(BlogComment blogComment) {
-		sessionFactory.getCurrentSession().save(blogComment);
-
-	}
-
+	
 	public void saveOrUpdate(BlogComment blogComment) {
 		sessionFactory.getCurrentSession().saveOrUpdate(blogComment);
 
 	}
-
-	public BlogComment  delete(int id) {
+	
+	
+	public BlogComment  delete(int bcid) {
 		BlogComment blogtoDelete = new BlogComment();
-		blogtoDelete.setBlogId(id);
+		blogtoDelete.setBlogId(bcid);
 		sessionFactory.getCurrentSession().delete(blogtoDelete);
 		return blogtoDelete;
 
 	}
-
+	
+	
 	@SuppressWarnings("unchecked")
-	public List<BlogComment> list() {
-		List<BlogComment> listBlogComment = (List<BlogComment>) sessionFactory.getCurrentSession()
-				.createCriteria(BlogComment.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		return listBlogComment;
-	}
-	@SuppressWarnings("unchecked")
-	public BlogComment getByBId(int id) {
-		String hql = "from BlogComment where id=" + "'" + id + "'";
+	public BlogComment getByBId(int bcid) {
+		String hql = "from BlogComment where bcid=" + "'" + bcid + "'";
 		org.hibernate.Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		List<BlogComment> listBlogComment = (List<BlogComment>) query.list();
 
@@ -69,5 +70,17 @@ public class BlogCommentDAOImpl implements BlogCommentDAO
 		}
 		return null;
 	}
+	
+	public void save(BlogComment blogComment) {
+		sessionFactory.getCurrentSession().save(blogComment);
+
+	}
+
+	
+
+	
+
+	
+	
 	
 }

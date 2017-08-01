@@ -11,13 +11,13 @@ public interface BlogCommentDAO
 	
 	public List<BlogComment> getById(int blogId);
 	
-	public BlogComment getByBId(int id);
+	public BlogComment getByBId(int bcid);
 	
 	public void save(BlogComment blogComment);
 	
 	public void saveOrUpdate(BlogComment blogComment);
 	
-	public BlogComment delete(int id);
+	public BlogComment delete(int bcid);
 
 
 }

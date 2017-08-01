@@ -1,5 +1,7 @@
 package com.niit.collbackend.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,11 +16,28 @@ public class Friend
 {
 	@Id
 	@GeneratedValue
+	private int fid;
+	
+	
 	private int friendId;
-	private String friendName;
 	private int userId;
 	private String userName;
 	private String status;
+	private String friendName;
+    private String isOnline;
+	private Date lastSeen;
+	
+	
+	
+	
+	public int getFid() {
+		return fid;
+	}
+	public void setFid(int fid) {
+		this.fid = fid;
+	}
+	
+	
 	public int getFriendId() {
 		return friendId;
 	}
@@ -49,4 +68,17 @@ public class Friend
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getIsOnline() {
+		return isOnline;
+	}
+	public void setIsOnline(String isOnline) {
+		this.isOnline = isOnline;
+	}
+	public Date getLastSeen() {
+		return lastSeen;
+	}
+	public void setLastSeen(Date lastSeen) {
+		this.lastSeen = lastSeen;
+	}
+	
 }

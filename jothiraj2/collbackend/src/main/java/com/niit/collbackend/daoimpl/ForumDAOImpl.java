@@ -28,6 +28,41 @@ public class ForumDAOImpl implements ForumDAO
 		List<Forum> forumList = sessionFactory.getCurrentSession().createQuery("from Forum").list();
 		return forumList;
 	}
+	
+	
+	
+	public Forum get(int forumid) {
+		String hql = "from Forum where forumid ='" + forumid + "'";
+		org.hibernate.Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		@SuppressWarnings("unchecked")
+		List<Forum> listForum = (List<Forum>) query.list();
+
+		if (listForum != null && !listForum.isEmpty()) {
+			return listForum.get(0);
+		}
+		return null;
+
+	}
+	
+	
+	public void save(Forum forum) {
+		sessionFactory.getCurrentSession().save(forum);
+		
+	}
+	
+	
+	public Forum saveOrUpdate(Forum forum) {
+		sessionFactory.getCurrentSession().saveOrUpdate(forum);
+		return forum;
+	}
+	
+	public void delete(int forumid) {
+		Forum forumToDelete = new Forum();
+		forumToDelete.setForumid(forumid);
+		sessionFactory.getCurrentSession().delete(forumToDelete);
+		
+	}
+
 
 	public List<Forum> getAcceptedList() {
 		String hql = "from Forum where status = " + "'A'";
@@ -47,34 +82,11 @@ public class ForumDAOImpl implements ForumDAO
 		return list;
 	}
 
-	public Forum get(int forumId) {
-		String hql = "from Forum where forumid ='" + forumId + "'";
-		org.hibernate.Query query = sessionFactory.getCurrentSession().createQuery(hql);
-		@SuppressWarnings("unchecked")
-		List<Forum> listForum = (List<Forum>) query.list();
+	
 
-		if (listForum != null && !listForum.isEmpty()) {
-			return listForum.get(0);
-		}
-		return null;
+	
 
-	}
-
-	public void save(Forum forum) {
-		sessionFactory.getCurrentSession().save(forum);
-		
-	}
-
-	public Forum saveOrUpdate(Forum forum) {
-		sessionFactory.getCurrentSession().saveOrUpdate(forum);
-		return forum;
-	}
-
-	public void delete(int forumId) {
-		Forum forumToDelete = new Forum();
-		forumToDelete.setForumid(forumId);
-		sessionFactory.getCurrentSession().delete(forumToDelete);
-		
-	}
+	
+	
 
 }

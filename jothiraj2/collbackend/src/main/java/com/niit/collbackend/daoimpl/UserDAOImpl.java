@@ -6,7 +6,9 @@ import javax.transaction.Transactional;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -42,28 +44,22 @@ public class UserDAOImpl implements UserDAO
 		return listUser;
 		 
 	}
+	
+	@Transactional
+	public void save(User user) {
+		sessionFactory.getCurrentSession().save(user);
+	}
 
 	
-	@Transactional	
-	public User create(User users) {
-		sessionFactory.getCurrentSession().save(users);
-		return users;
+	public void saveOrUpdate(User user) {
+		sessionFactory.getCurrentSession().saveOrUpdate(user);
+		
 	}
+	
+	
 	@Transactional	
-	public User delete(int userId) {
-		User usertoDelete=new User();
-		usertoDelete.setUserId(userId);
-		sessionFactory.getCurrentSession().delete(usertoDelete);
-		return usertoDelete;
-		}
-	@Transactional	
-	public User update(User users) {
-		sessionFactory.getCurrentSession().saveOrUpdate(users);
-		return users;
-	}
-	@Transactional	
-	public User get(int id) {
-		String hql = "from User where userId =" + "'"+ id +"'";
+	public User getById(int userId){
+		String hql = "from User where userId =" + "'"+ userId +"'";
 		org.hibernate.Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		@SuppressWarnings("unchecked")
 		List<User> listUser = (List<User>) query.list();
@@ -73,7 +69,7 @@ public class UserDAOImpl implements UserDAO
 		}
 		return null;
 }
-
+	
 	@Transactional
 	public List<User> getbyUsername(String username) {
 		// TODO Auto-generated method stub
@@ -85,7 +81,24 @@ public class UserDAOImpl implements UserDAO
 		
 		return listUser;
 	}
+	
+	
+	
+	@Transactional
+	public User getByEmail(String email_id) {
+		User userByEmail = (User) sessionFactory.getCurrentSession().get(User.class, email_id);
 
+		return userByEmail;
+	}
+	
+	@Transactional	
+	public User delete(int userId) {
+		User usertoDelete=new User();
+		usertoDelete.setUserId(userId);
+		sessionFactory.getCurrentSession().delete(usertoDelete);
+		return usertoDelete;
+		}
+	
 	@Transactional
 	public User login(User user) {
 
@@ -106,10 +119,17 @@ public class UserDAOImpl implements UserDAO
 		return null;
 	}
 
-	@Transactional
-	public void save(User user) {
-		sessionFactory.getCurrentSession().save(user);
+	
+	public List<String> getOnlineUsers() {
+		Session session = sessionFactory.openSession();
+		Transaction trans = session.beginTransaction();
+		Query query = session.createQuery("select username from User where online=1");
+		List<String> onlineUsers = query.list();
+		session.close();
+		return onlineUsers;
 	}
+
+	
 
 	
 }

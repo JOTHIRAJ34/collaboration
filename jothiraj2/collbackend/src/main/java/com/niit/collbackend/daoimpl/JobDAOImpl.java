@@ -23,7 +23,7 @@ public class JobDAOImpl implements JobDAO
 		
 		this.sessionFactory = sessionFactory;
 	}
-
+	@Transactional
 	@SuppressWarnings("unchecked")
 	public List<Job> list() {
 		List<Job> jobList = (List<Job>) sessionFactory.getCurrentSession().createCriteria(Job.class)
@@ -31,28 +31,25 @@ public class JobDAOImpl implements JobDAO
 
 		return jobList;
 	}
-
+	@Transactional
 	public void save(Job job) {
 		sessionFactory.getCurrentSession().save(job);
 
 	}
-
+	@Transactional
 	public void saveOrUpdate(Job job) {
 		sessionFactory.getCurrentSession().saveOrUpdate(job);
 
 	}
-
+	@Transactional
 	public Job getByJobId(int jobid) {
 		Job listById = (Job) sessionFactory.getCurrentSession().get(Job.class, jobid);
 
 		return listById;
 	}
-
-	public Job delete(int jobid) {
-		Job jobtoDelete = new Job();
-		jobtoDelete.setJobid(jobid);
-		sessionFactory.getCurrentSession().delete(jobtoDelete);
-		return jobtoDelete;
+	@Transactional
+	public void delete(int jobid) {
+		sessionFactory.getCurrentSession().delete(jobid);
 
 	}
 }

@@ -55,8 +55,8 @@ public class UserTestCase
 		
 		
 		/* BlogComment */
-		blogComment.setTitle("AngularJS");
-		blogComment.setMessage("message");
+
+		blogComment.setBcomments("welcome to this session");
 		blogComment.setUser_id(1);
 		blogComment.setUser_name("Kishore");
 		blogComment.setBlogId(2);
@@ -103,7 +103,7 @@ public class UserTestCase
 		user.setStatus("V");
 		user.setIs_online("is_online");
 
-		userDAO.create(user);
+		userDAO.save(user);
 	
 	}
 	

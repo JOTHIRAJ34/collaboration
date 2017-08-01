@@ -12,14 +12,16 @@ public interface FriendDAO
 
 	public void save(Friend friend);
 
-	public void saveOrUpdate(Friend friend);
+	public Friend saveOrUpdate(Friend friend);
 
 	public Friend getByFriendId(int id);
 
 	public List<Friend> getByFriendName(String name);
 
-	public List<Friend> getByFriendAccepted(String name);
+	public List<Friend> getByFriendAccepted(String friendName);
+	
+  public List<Friend> getByFriendAccepted1(String name);
 
-	public void delete(int friendId);
+	public void delete(int id);
 
 }

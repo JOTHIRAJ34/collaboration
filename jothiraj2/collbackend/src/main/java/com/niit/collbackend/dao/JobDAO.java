@@ -14,5 +14,5 @@ public interface JobDAO
 
 	public Job getByJobId(int jobid);
 
-	public Job delete(int jobid);
+	public void delete(int jobid);
 }

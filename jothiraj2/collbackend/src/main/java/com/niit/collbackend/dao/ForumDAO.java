@@ -12,11 +12,11 @@ public interface ForumDAO
 
 	public List<Forum> getNotAcceptedList();
 
-	public Forum get(int forumId);
+	public Forum get(int forumid);
 
 	public void save(Forum forum);
 
 	public Forum saveOrUpdate(Forum forum);
 
-	public void delete(int forumId);
+	public void delete(int forumid);
 }
