@@ -1,25 +1,30 @@
 'use strict';
 
-app.controller('BlogController', ['$scope','BlogService','$location','$rootScope','$cookieStore','$http',
-		function($scope, BlogService, $location,$rootScope, $cookieStore,
-				$http) {
+app.controller('BlogController', ['$scope','BlogService','BlogCommentService','$location','$rootScope','$cookieStore','$http',
+							function($scope,BlogService,BlogCommentService,$location,$rootScope,$cookieStore,$http) {
 			console.log("BlogController...")
+		    console.log("BlogCommentController...")
 		    
 			var self = this;
 			self.blog = {blogId : '',title : '',description:'',userId : '',user_name : '',createdate:'',Status:'',likes:''};
-			self.blogs = [];
+			self.blogcomment = {bcid:'',blogId:'',bcomments:'',commentdate:'',user_id:'',user_name:'',email_Id:''};
+
 			
+			self.blogs = [];
+			self.blogcomments= [];
+			
+			self.createBlogComment = createBlogComment;
 			self.submit = submit;
 		    self.update = update;
 		    self.get = get;
 		    self.adminGet = adminGet;
-		    self.AcceptedBlog = AcceptedBlog;
+		    self.AcceptedBlogs = AcceptedBlogs;
 		    self.notAcceptedBlogs = notAcceptedBlogs;
 			self.accept = accept;
 			self.rejectBlog = rejectBlog;
 		    
 		    fetchAllBlogs();
-		    AcceptedBlog();
+		    AcceptedBlogs();
 		    reset();
 		    
 		    function fetchAllBlogs() {
@@ -31,9 +36,9 @@ app.controller('BlogController', ['$scope','BlogService','$location','$rootScope
 				});
 			}
 		    
-		    function AcceptedBlog() {
-				console.log("AcceptedBlog...")
-				BlogService.AcceptedBlog().then(function(d) {
+		    function AcceptedBlogs() {
+				console.log("AcceptedBlogs...")
+				BlogService.AcceptedBlogs().then(function(d) {
 									//alert("Thank you for creating message")
 					console.log(d)
 									self.blogsAccept = d;
@@ -146,7 +151,7 @@ app.controller('BlogController', ['$scope','BlogService','$location','$rootScope
 				console.log($scope.bv);
 				console.log($scope.bcmt);
 				console.log("fetchingAllBlogComments...")
-				$rootScope.viewBlog=$scope.bv;
+				$rootScope.viewblog=$scope.bv;
 				$rootScope.bct=$scope.bcmt;
 				$location.path("/viewblog");
 				}, function(errResponse) {
@@ -159,8 +164,8 @@ app.controller('BlogController', ['$scope','BlogService','$location','$rootScope
 			function adminGet(blogs){
 				$scope.bvv=blogs;
 				console.log($scope.bvv);
-				$rootScope.viewBlogs=$scope.bvv;
-				$location.path("/adminBlogs");
+				$rootScope.viewblogs=$scope.bvv;
+				$location.path("/adminBlogd");
 			};
 			
 			

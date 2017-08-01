@@ -16,9 +16,9 @@ app.service('UserService',['$http','$q',function($http,$q)
          },
          
          
-         accept: function(id) {
+         accept: function(userId) {
          	console.log("calling approve ")
-                 return $http.get(BASE_URL+'/accept/'+id)
+                 return $http.get(BASE_URL+'/accept/'+userId)
                          .then(
                                  function(response){
                                      return response.data;
@@ -31,9 +31,9 @@ app.service('UserService',['$http','$q',function($http,$q)
          },
          
          
-         reject: function(id, reason) {
+         reject: function(userId, reason) {
          	console.log("calling reject ")
-                 return $http.get(BASE_URL+'/reject/'+id+'/'+reason)
+                 return $http.get(BASE_URL+'/reject/'+userId+'/'+reason)
                          .then(
                                  function(response){
                                      return response.data;
@@ -43,7 +43,7 @@ app.service('UserService',['$http','$q',function($http,$q)
          },
          
          
-         updateUser: function(user, id){
+         updateUser: function(user, userId){
          	console.log("calling fetchAllUsers ")
                  return $http.put(BASE_URL+'/user/', user).then(function(response){
                                      return response.data;

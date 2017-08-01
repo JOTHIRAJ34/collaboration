@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Received Requests</h1>
+<div ng-controller="FriendController as fr">
+<div ng-init="fr.fetchAllUserId()">
+<div ng-repeat="user in fr.friendss" >
+<h1><span ng-bind="user.user_name"></span></h1>
+</div>
+</div>
+</div>
+</body>
+</html>

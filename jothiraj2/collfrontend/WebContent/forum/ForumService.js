@@ -66,7 +66,7 @@ app.service('ForumService', ['$http','$q','$rootScope',
 				
 				function updateForum(forum){
 					console.log("calling fetchAllForums ")
-					return $http.put(BASE_URL + '/forum/', Forum) // 2
+					return $http.put(BASE_URL + '/forum', Forum) // 2
 					.then(function(response) {
 						return response.data;
 					}, function(errResponse) {
@@ -88,9 +88,9 @@ app.service('ForumService', ['$http','$q','$rootScope',
 				};
 				
 				
-				function deleteForumRequest(id){
+				function deleteForumRequest(forumid){
 					console.log("Deleting Forum Request");
-					return $http.delete(BASE_URL + '/forum/'+id).then(function(response){
+					return $http.delete(BASE_URL + '/forum/'+forumid).then(function(response){
 							
 						return response.data;
 							},function(errResponse) {

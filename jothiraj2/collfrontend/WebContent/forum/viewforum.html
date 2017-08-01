@@ -63,7 +63,7 @@
 </head>
 <body>
 <div class="first">Forum:</div>
-	<div class="index-content" ng-repeat="for in fc.forums">
+	<div class="index-content" ng-repeat="for in fc.forumsAccept">
 		<div class="container">
 		
 				<div class="col-lg-4">
@@ -80,8 +80,8 @@
 						<div>
 						<p>
 							<h4>
-								Created By: <span ng-bind="for.user_id"></span> with StatuS: <span
-									ng-bind="for.Status"></span>
+								Created By: <span ng-bind="for.user_name"></span> with StatuS: <span
+									ng-bind="for.status"></span>
 							</h4>
 						
 

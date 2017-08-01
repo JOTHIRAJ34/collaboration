@@ -13,10 +13,10 @@ app.service('BlogService', [
 				fetchAllBlogs : fetchAllBlogs,
 				createBlog : createBlog,
 				updateBlog : updateBlog,
-				AcceptedBlog : AcceptedBlog,
+				AcceptedBlogs : AcceptedBlogs,
 				notAcceptedBlogs : notAcceptedBlogs,
 				accept: accept,
-				deleteBlogRequest:deleteBlogRequest
+				deleteBlogRequest:deleteBlogRequest,
 			};
 			return factory;
 			
@@ -27,8 +27,8 @@ app.service('BlogService', [
 				}, null);
 			};
 			
-			function AcceptedBlog() {
-				console.log("calling AcceptedBlog ")
+			function AcceptedBlogs() {
+				console.log("calling AcceptedBlogs ")
 
 				return $http.get(BASE_URL + '/acceptedblog').then(
 						function(response) {
@@ -48,9 +48,9 @@ app.service('BlogService', [
 
 						}, null);
 			};
-			function createBlog(blog) {
+			function createBlog(Blog) {
 				console.log("calling create Blog")
-				return $http.post(BASE_URL + '/blog', blog) // 1
+				return $http.post(BASE_URL + '/blog', Blog) // 1
 				.then(function(response) {
 					return response.data;
 				}, function(errResponse) {
@@ -60,9 +60,9 @@ app.service('BlogService', [
 			};
 			
 			
-			function updateBlog(blog) {
+			function updateBlog(Blog) {
 				console.log("calling fetchAllBlogs ")
-				return $http.put(BASE_URL + '/blog', blog) // 2
+				return $http.put(BASE_URL + '/blog', Blog) // 2
 				.then(function(response) {
 					return response.data;
 				}, function(errResponse) {
@@ -72,9 +72,9 @@ app.service('BlogService', [
 			};
 			
 			
-			function accept(blog) {
+			function accept(Blog) {
 				console.log("calling accept Blogs ")
-				return $http.put(BASE_URL + '/acceptBlog', blog) // 2
+				return $http.put(BASE_URL + '/acceptBlog', Blog) // 2
 				.then(function(response) {
 					return response.data;
 				}, function(errResponse) {

@@ -5,10 +5,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div><h4 style= "margin: 0px 0px 10px 0px; margin-left: 85%;"><a href="#blog" ng-show="currentUser.name">Create New Blog</a></h4></div>
-<div><h1 style="margin-top: 2em;">{{viewBlog.title}}</h1>
-<h5>Created by : <b>{{viewBlog.username}}</b> | Created On : <b>{{viewBlog.timeStamp}}</b></h5>
-<h4>{{viewBlog.description}}</h4></div>
+<div><h4 style= "margin: 0px 0px 10px 0px; margin-left: 85%;"><a href="#blog" ng-show="currentUser.user_name">Create New Blog</a></h4></div>
+<div><h1 style="margin-top: 2em;">{{viewblog.title}}</h1>
+<h5>Created by : <b>{{viewblog.user_name}}</b> | Created On : <b>{{viewblog.createdate}}</b></h5>
+<h4>{{viewblog.description}}</h4></div>
 
 
 <form ng-submit="bc.createBlogComment(bc.blogcomment)">
@@ -25,7 +25,7 @@
 
 <div ng-repeat="bcv in bct">
 
-<h3>UserName: <span ng-bind="bcv.userName"></span></h3>
+<h3>UserName: <span ng-bind="bcv.user_name"></span></h3>
 
 <!-- <td>{{cv.userName}}</td> -->
 <h5>Comment: <span ng-bind="bcv.bcomments"></span></h5>

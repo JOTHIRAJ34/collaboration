@@ -78,10 +78,32 @@ app.controller('ForumController', ['$scope','ForumService','$location','$rootSco
 			};
 			
 			
+			function reject(forumid){
+				console.log("reject...")
+				var reason = prompt("Please enter the reason");
+				ForumService.reject(id, reason).then(function(d) {
+					self.forum = d;
+					self.fetchAllForums
+					$location.path("/manage_Forums")
+					alert(self.forum.errorMessage)
+
+				}, null);
+			};
+			
 			function updateForum(currentForum){
 				console.log("updateForum...")
 				ForumService.updateForum(currentForum).then(
 						self.fetchAllForums, null);
+			};
+			
+			
+			function update() {
+				{
+					console.log('Update the Forum details',
+							$rootScope.currentForum);
+					updateForum($rootScope.currentForum);
+				}
+				reset();
 			};
 			
 			
@@ -97,7 +119,7 @@ app.controller('ForumController', ['$scope','ForumService','$location','$rootSco
 			};
 			
 			function get(forum){
-				CommentService.fetchAllComments(forum.forumId) .then(function(d) {
+				CommentService.fetchAllComments(forum.forumid) .then(function(d) {
 					self.forumComments = d;
 					$rootScope.fcomment = d;
 					console.log($rootScope.fcomment);
@@ -110,7 +132,7 @@ app.controller('ForumController', ['$scope','ForumService','$location','$rootSco
 					console.log($scope.cmt);
 					console.log("fetchingAllComments...")
 					
-					$rootScope.viewForumm=$scope.fv;
+					$rootScope.viewforum=$scope.fv;
 					$rootScope.ct=$scope.cmt;
 					$location.path("/viewforum");
 				}, function(errResponse) {
@@ -121,16 +143,25 @@ app.controller('ForumController', ['$scope','ForumService','$location','$rootSco
 				
 			};
 			
-			
-			
-			function update() {
-				{
-					console.log('Update the Forum details',
-							$rootScope.currentForum);
-					updateForum($rootScope.currentForum);
-				}
-				reset();
+			function adminGet(forums){
+				$scope.fvv=forums;
+				console.log($scope.fvv);
+				$rootScope.viewForums=$scope.fvv;
+				$location.path("/adminForumd");
 			};
+			
+			
+			function rejectForum(viewForums){
+				ForumService.deleteForumRequest(viewForums.forumid).then(function(d) {
+					self.deleteForumRequestId = d;		    			
+					console.log(self.deleteForumRequestId);
+		    			$location.path("/admin")
+		    	}, function(errResponse){
+		                console.error('Error while deleting ForumRequest');
+		            });
+		    };
+			
+			
 			
 			
 			 function submit() {

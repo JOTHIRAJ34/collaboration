@@ -26,8 +26,15 @@
 <script type="text/javascript" src="forum/ForumController.js"></script>
 <script type="text/javascript" src="job/JobController.js"></script>
 <script type="text/javascript" src="job/JobService.js"></script>
+<script type="text/javascript" src="blogcomment/BlogCommentService.js"></script>
+<script type="text/javascript" src="friend/FriendController.js"></script>
+<script type="text/javascript" src="friend/FriendService.js"></script>	
+<script type="text/javascript" src="chat/ChatController.js"></script>	
+<script type="text/javascript" src="chat/ChatService.js"></script>	
+<script src="js/sockjs.js"></script>
+<script src="js/stomp.js"></script>
 
-	
+
 <style>
 li
 {
@@ -38,23 +45,33 @@ font-size:20px;
 }
 .dropdown-menu
 {
-padding:5px 0px 5px 0px ;
+padding:5px 0px 3px 0px ;
+}
+.loged_in
+{
+padding:0px 20px 0px 20px;
+z-index:10;
+font-size:10px;
+float:right;
+
 }
 </style>
 </head>
 <body ng-app="myapp"   ng-controller="UserController as uc">
-<p ng-hide="currentUser.user_name">
 
-<h3  ng-show="currentUser.user_name">Welcome {{currentUser.user_name}} You Are Here An {{currentUser.role}}</h3>
+<p ng-hide="currentUser.user_name"> </p>
+
+
+
 	<nav class="navbar navbar-light" style="background-color: white;">
 
 		<div class="container-fluid">
 			
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
-				    <li><a href="#home" >Home</a></li>
-					<li><a href="#friend" >Friend</a></li>
-					<li><a href="#chat" >Chat</a></li>
+				    <li><a href="#!home" >Home</a></li>
+					<li><a href="#!find" >Friend</a></li>
+					<li><a href="#!chat" >Chat</a></li>
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown">Blog <span class="caret"></span></a>
 						<ul class="dropdown-menu">
@@ -62,30 +79,32 @@ padding:5px 0px 5px 0px ;
 							<li><a href="#!addblog">Add</a></li>
 						</ul></li>
 					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#">Forum <span class="caret"></span></a>
+						data-toggle="dropdown">Forum <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="#!viewforum">View</a></li>
 							<li><a href="#!addforum" ng-show="currentUser.role!='HR'">Add</a></li>
 						</ul></li>
 					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#">Job <span class="caret"></span></a>
+						data-toggle="dropdown">Job <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="#!viewjob">View</a></li>
 							<li><a href="#!addjob" ng-show="currentUser.role == 'HR'">Add</a></li>
 						</ul></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#!register" ng-hide="currentUser.user_name"><span class="glyphicon glyphicon-user"></span>
+					<li ng-hide="currentUser.user_name"><a href="#!register"><span class="glyphicon glyphicon-user"></span>
 							Sign Up</a></li>
-					<li><a href="#!login" ng-hide="currentUser.user_name"><span class="glyphicon glyphicon-log-in"></span>
+					<li ng-hide="currentUser.user_name"><a href="#!login"><span class="glyphicon glyphicon-log-in"></span>
 							Login</a></li>
-					<li> <a href="" ng-click="uc.logout()" ng-show="currentUser.user_name" >
+					<li><a ng-click="uc.logout()" ng-show="currentUser.user_name" > 
 					 <span class="glyphicon glyphicon-log-out"></span>
 					       Log-out</a></li>
 				</ul>
+				
 			</div>
 		</div>
 	</nav>
+	<div class="loged_in"><h4  ng-show="currentUser.user_name">Welcome {{currentUser.user_name}},As {{currentUser.role}}</h4></div>
 <div ng-view></div>
 
 </body>

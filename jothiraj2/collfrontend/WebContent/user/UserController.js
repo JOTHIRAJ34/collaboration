@@ -1,15 +1,21 @@
  'use strict';
-app.controller('UserController', [ '$scope', 'UserService','$location','$rootScope', '$cookieStore','$cookies',
-	function($scope,UserService,$location,$rootScope,$cookieStore,$cookies)
-{
+ app.controller('UserController',['$scope','UserService','FriendService','$location','$rootScope','$cookies','$cookieStore','$http',
+	 function($scope, UserService,FriendService, $location, $rootScope,$cookies,$cookieStore, $http) {
+							
 console.log("UserController...")
 var i = 0;
 var j = 0;
 var self=this;
 self.user={userId:'',user_name:'',first_name:'',last_name:'',password:'',email_id:'',role:''};
 self.currentUser={userId:'',user_name:'',first_name:'',last_name:'',password:'',email_id:'',role:''};
+self.friend = {fid:'',friendId : '',userId: '',userName:'',status:'',friendName:'',isOnline:'',lastSeen:''};
+self.userLoggedIn = "";
+
+
 self.users=[];
+self.friends = [];
 var arr=[];
+var friendarr=[];
 $scope.orderByMe=function(x)
 {
 	$scope.myOrderBy=x;
@@ -36,10 +42,77 @@ self.fetchAllUsers = function() {
 		self.us = arr;	
 		console.log(self.us)
 		
+		console.log("fetchAllRequestedFriend...")
+									FriendService.fetchAllRequestedfriends($scope.loginUser.userId).then(function(d) {
+										self.friends = d;
+										console.log(self.friends)					
+							
+										
+											for(j=0; j<self.us.length; j++){
+												for(i=0; i<self.friends.length; i++){
+												if(self.friends[i].friendId === self.us[j].userId){
+													self.us.splice(j, 1);
+													console.log(self.us)
+												}
+											}
+										}
+										self.asd = self.us;
+										
+									},function(errResponse) {
+										console.error('Error while fetching Friends');
+									} );
+		
 	},function(errResponse) {
 		console.error('Error while fetching Users');
 	});	
 	
+};
+
+self.requestedFriend = function() {
+	$rootScope.loginUser =$rootScope.currentUser;
+	console.log("GetAllRequestedFriends...")
+	FriendService.fetchRequestedfriends($rootScope.loginUser.user_name).then(function(d) {
+						self.reqFriend = d;
+						
+						console.log(self.reqFriend)
+					},function(errResponse) {  
+						console.error('Error while fetching By Friend Name');
+					});
+};
+
+self.acceptFriend = function(reqFriend) {
+	
+	
+	console.log('accept the friend request')
+	FriendService.updateFriendReq(reqFriend);
+	
+	console.log('Accepted')
+$location.path("/find")
+
+
+};
+
+self.AcceptedFriendCurrentUser = function() {
+	$rootScope.loginUser =$rootScope.currentUser;
+	console.log("GetAllAcceptedFriendCurrentUser...")
+	FriendService.fetchAcceptedFriends($rootScope.loginUser.user_name).then(function(d) {
+						self.accFriend = d;
+						
+						console.log(self.accFriend)
+					},function(errResponse) {  
+						console.error('Error while fetching Accepted list');
+					});
+};
+
+
+self.deleteFriendRequest = function(req){
+	FriendService.deleteFriendRequest(req.fid).then(function(d) {
+		self.deleteFriendRequestid = d;		    			
+		console.log(self.deleteFriendRequestid)
+			$location.path("/find")
+	}, function(errResponse){
+            console.error('Error while deleting FriendRequest');
+        });
 };
 
 self.createUser = function(user){
@@ -55,9 +128,9 @@ self.createUser = function(user){
 				});
 };
 
-self.accept = function(id) {
+self.accept = function(userId) {
 	console.log("accept...")
-	UserService.accept(id).then(function(d) {
+	UserService.accept(userId).then(function(d) {
 						self.user = d;
 						self.fetchAllUsers
 						$location.path("/manage_users")
@@ -80,7 +153,7 @@ self.accept = function(id) {
 					});
 };*/
 
-self.reject = function(id) {
+self.reject = function(userId) {
 	console.log("reject...")
 	var reason = prompt("Please enter the reason");
 	UserService.reject(id, reason).then(
@@ -159,12 +232,30 @@ self.authenticate = function(user) {
 self.logout = function() {
 	console.log("logout")
 	self.userLoggedIn = "false"
+		console.log("it is logout")
 	$rootScope.currentUser = {};
 	$cookieStore.remove('currentUser');
 	UserService.logout()
 	$location.path('/login');
 
-}
+};
+
+self.send = function(friendUser){
+	console.log("sending friend request...")
+	FriendService.createFriend(friendUser).then(function(d) {
+		console.log(d)
+	/*	self.frndreq=d;
+		console.log(frndreq)*/
+		
+						//alert("Thank you for  creating friend")
+		$location.path("/find")
+		//self.fetchAllUsers();
+					},
+					function(errResponse) {
+						console.error('Error while creating friend..');
+					});
+
+};
 
 self.submit=function(){
 	console.log('Saving a New User',self.user);
@@ -175,8 +266,14 @@ self.submit=function(){
 self.reset=function()
 {
 	self.user={userId:null,user_name:'',first_name:'',last_name:'',password:'',email_id:'',role:''};
+	self.friend = {fid:'',friendId : '',userId: '',userName:'',status:'',friendName:'',isOnline:'',lastSeen:''};
+
 	self.users=[];
+	self.friends = [];
+
 	var arr=[];
+	var friendarr=[];
+
 	};
 	
 	

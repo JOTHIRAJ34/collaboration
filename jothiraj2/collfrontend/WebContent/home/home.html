@@ -3,8 +3,122 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<style>
+.index-content a:hover {
+	color: red;
+	text-decoration: none;
+}
+
+.index-content {
+	margin-bottom: 5px;
+	padding: 50px 50px;
+}
+
+.index-content .row {
+	margin-top: 10px;
+}
+
+.index-content a {
+	color: black;
+	float: right;
+	padding: 5px;
+}
+
+.index-content .card {
+	background-color: #e89999;
+	padding: 50px;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0
+		rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+}
+
+.index-content .card:hover {
+	box-shadow: 20px 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px
+		rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.3);
+	color: black;
+}
+
+.index-content .card h4 {
+	margin: 20px;
+}
+
+.index-content .card p {
+	margin: 50px;
+	opacity: 0.65;
+}
+
+@media ( max-width : 768px) {
+	.index-content .col-lg-4 {
+		margin-top: 20px;
+	}
+}
+</style>
 </head>
 <body>
-hello!!!!!!!!!
+<div  ng-controller="UserController as uc">
+
+
+<div ng-controller="BlogController as bc" >
+<h3>Blogs</h3>
+<div ng-init="bc.AcceptedBlogs()">
+<div class="index-content" ng-repeat="u in bc.blogsAccept">
+<div class="container">
+<div class="col-lg-4">
+<div class="card">
+<h1>TITLE: <span ng-bind="u.title"></span></h1> <h6>Authored By:<span ng-bind="u.user_name"></span></h6> 
+<h6>STATUS: <span ng-bind="u.Status"></span></h6>
+<h3>DESC: <span ng-bind="u.description"></span></h3>
+<a href="" ng-click="bc.get(u)"><input type="button" name="button"  value="Read More"/></a>
+<hr>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div   ng-controller="ForumController as fc">
+<h3>Forums</h3>
+<div ng-init="fc.AcceptedForums()">
+<div class="index-content" ng-repeat="for in fc.forumsAccept" >
+<div class="container">
+<div class="col-lg-4">
+<div class="card">
+<h1><span ng-bind="for.title"></span></h1> <h6>Created On:<span ng-bind="for.forumDate"></span></h6> 
+<h6><span ng-bind="for.description" | limitTo : 25"></span></h6>
+<a href="" ng-click="fc.get(for)"><input type="button" name="button"  value="Read More"/></a>
+<hr>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div   ng-controller="JobController as jc">
+<h3>Jobs</h3>
+<div class="index-content" ng-repeat="jo in jc.jobs" >
+<div class="container">
+<div class="col-lg-4">
+<div class="card">
+<h1><span ng-bind="jo.jobDescription"></span></h1>
+<h6><span ng-bind="jo.status"></span></h6>
+<h4>Knowledge Required:<span ng-bind="jo.qualification | limitTo : 10"></span>....</h4>
+ <h4>Email-Id:<span ng-bind="jo.email_id"></span></h4>
+ <h6>Created On:<span ng-bind="jo.postDate"></span></h6>
+ <a href="" ng-click="jc.get(jo)"><input type="button" name="button"  value="Read More"/></a>
+<hr>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>
