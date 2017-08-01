@@ -22,6 +22,15 @@ public class ForumController {
 		
 		@Autowired ForumDAO forumDAO;
 		
+		
+		public ForumDAO getForumDAO() {
+			return forumDAO;
+		}
+
+		public void setForumDAO(ForumDAO forumDAO) {
+			this.forumDAO = forumDAO;
+		}
+		
 		@GetMapping("/forums")
 		public List<Forum> list(){
 			List<Forum> forumList=forumDAO.list();
@@ -29,11 +38,11 @@ public class ForumController {
 			
 		}
 		
-		@GetMapping("/forum/{forum_id}")
-		public ResponseEntity<Forum> getByForumId(@PathVariable("forum_id")int id ){
-			Forum forum = forumDAO.get(id);
+		@GetMapping("/forum/{forumid}")
+		public ResponseEntity<Forum> getByForumId(@PathVariable("forumid")int forumid ){
+			Forum forum = forumDAO.get(forumid);
 			if (forum == null) {
-				return new ResponseEntity("No Forum found for ID " + id, HttpStatus.NOT_FOUND);
+				return new ResponseEntity("No Forum found for forumid " + forumid, HttpStatus.NOT_FOUND);
 			}
 			return new ResponseEntity<Forum>(forum, HttpStatus.OK);
 		}
@@ -69,14 +78,14 @@ public class ForumController {
 			return new ResponseEntity(forum, HttpStatus.OK);
 		}
 
-		@DeleteMapping("/forum/{forum_id}")
-		public ResponseEntity<Forum> deleteforum(@PathVariable("forum_id") int id) {
-			Forum forum = forumDAO.get(id);
+		@DeleteMapping("/forum/{forumid}")
+		public ResponseEntity<Forum> deleteforum(@PathVariable("forumid") int forumid) {
+			Forum forum = forumDAO.get(forumid);
 			if (forum == null) {
-				return new ResponseEntity("No Forum found for ID " + id, HttpStatus.NOT_FOUND);
+				return new ResponseEntity("No Forum found for forumid " + forumid, HttpStatus.NOT_FOUND);
 			}
-			forumDAO.delete(id);
-			return new ResponseEntity("deleted for ID " + id, HttpStatus.OK);
+			forumDAO.delete(forumid);
+			return new ResponseEntity("deleted for forumid " + forumid, HttpStatus.OK);
 
 		}
 

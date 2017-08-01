@@ -35,11 +35,11 @@ public class UserController
 	}
 
 	@GetMapping("/userid/{userId}")
-	public ResponseEntity<User> getUserByID(@PathVariable("userId") int id) {
+	public ResponseEntity<User> getUserByID(@PathVariable("userId") int userId) {
 
-		User user = userDAO.get(id);
+		User user = userDAO.getById(userId);
 		if (user == null) {
-			return new ResponseEntity("No User found for ID " + id, HttpStatus.NOT_FOUND);
+			return new ResponseEntity("No User found for userId " + userId, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity(user, HttpStatus.OK);
 	}
@@ -57,24 +57,24 @@ public class UserController
 
 	@PostMapping("/user")
 	public ResponseEntity save(@RequestBody User user) {
-		userDAO.create(user);
+		userDAO.save(user);
 		return new ResponseEntity(user, HttpStatus.OK);
 	}
 
 	@PutMapping("/user")
 	public ResponseEntity update(@RequestBody User user) {
-		userDAO.update(user);
+		userDAO.saveOrUpdate(user);
 		return new ResponseEntity(user, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/user/{userId}")
-	public ResponseEntity deleteUser(@PathVariable("userId") int id) {
-		User user = userDAO.get(id);
+	public ResponseEntity deleteUser(@PathVariable("userId") int userId) {
+		User user = userDAO.getById(userId);
 		if (user == null) {
-			return new ResponseEntity("No User found for ID " + id, HttpStatus.NOT_FOUND);
+			return new ResponseEntity("No User found for userId " + userId, HttpStatus.NOT_FOUND);
 		}
-		userDAO.delete(id);
-		return new ResponseEntity("deleted for ID " + id, HttpStatus.OK);
+		userDAO.delete(userId);
+		return new ResponseEntity("deleted for userId " + userId, HttpStatus.OK);
 
 	}
 	
@@ -104,7 +104,7 @@ public class UserController
 			return new ResponseEntity<Error>(error, HttpStatus.UNAUTHORIZED);
 		} else {
 			// user.setOnline(false);
-			userDAO.update(user);
+			userDAO.saveOrUpdate(user);
 			session.removeAttribute("user");
 			session.invalidate();
 			return new ResponseEntity<Void>(HttpStatus.OK);

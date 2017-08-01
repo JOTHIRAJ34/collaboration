@@ -2,6 +2,8 @@ package com.niit.collaboration.restfulservices;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,48 +17,93 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.niit.collbackend.dao.FriendDAO;
 import com.niit.collbackend.model.Friend;
+import com.niit.collbackend.model.User;
 
 @RestController
 public class FriendController
 {
 @Autowired FriendDAO friendDAO;
-	
-	@GetMapping("/friend")
-	public List<Friend> list(){
-		List<Friend> freindList=friendDAO.list();
-		return freindList;
-		
-	}
-	
-	@GetMapping("/friend/{friendId}")
-	public Friend getByFriendId(@PathVariable("friendId") int id) {
-		Friend friendList = friendDAO.getByFriendId(id);
+@Autowired Friend friend;
+public FriendDAO getFriendDAO() {
+	return friendDAO;
+}
 
-		return friendList;
-	}
-	
-	@PostMapping("/friend")
-	public ResponseEntity<Friend> save(@RequestBody Friend friend) {
-		friendDAO.save(friend);
-		return new ResponseEntity<Friend>(friend, HttpStatus.OK);
-	}
-	
-	@PutMapping("/friend")
-	public ResponseEntity<Friend> update(@RequestBody Friend friend) {
-		friendDAO.saveOrUpdate(friend);
-		return new ResponseEntity<Friend>(friend, HttpStatus.OK);
-	}
-	
-	@DeleteMapping("/friends/{friendId}")
-	public ResponseEntity<Friend> deleteFriend(@PathVariable("friendId") int id) {
-		Friend friend = friendDAO.getByFriendId(id);
-		if (friend == null) {
-			return new ResponseEntity("No Friend found for ID " + id, HttpStatus.NOT_FOUND);
-		}
-		friendDAO.delete(id);
-		return new ResponseEntity("deleted for ID " + id, HttpStatus.OK);
+public void setFriendDAO(FriendDAO friendDAO) {
+	this.friendDAO = friendDAO;
+}
 
+
+@GetMapping("/friends")
+public List<Friend> getCustomers() {
+	return friendDAO.list();
+}
+
+
+
+@GetMapping("/friend/{userId}")
+public List<Friend> getByUser(@PathVariable("userId") int userId) {
+	return friendDAO.list(userId);
+}
+
+
+
+@GetMapping("/friends/{userName}")  
+public List<Friend> geByID(@PathVariable("userName") String userName) {
+	return friendDAO.getByFriendName(userName);
+	
+}
+
+@GetMapping("/friendsAccepted/{friendName}")  
+public List<Friend> geByFriendAccepted(@PathVariable("friendName") String friendName) {
+	return friendDAO.getByFriendAccepted(friendName);
+	
+}
+
+
+
+@PostMapping("/friends")
+public ResponseEntity createFriend(@RequestBody User friendUser, HttpSession session) {
+	User user = (User) session.getAttribute("user");   
+	friend.setUserId(user.getUserId());
+	friend.setUserName(user.getUser_name());
+	friend.setStatus("P");
+	friend.setFriendId(friendUser.getUserId());
+	friend.setFriendName(friendUser.getUser_name());
+	friend.setIsOnline("TRUE");
+
+	friendDAO.save(friend);
+
+	return new ResponseEntity(friend, HttpStatus.OK);
+}
+@GetMapping("/friendsAccepted1/{name}")  
+public List<Friend> getByFriendAccepted1(@PathVariable("name") String name) {
+	
+	
+	List<Friend> friendList1 = friendDAO.getByFriendAccepted1(name);
+	
+	return friendList1;
+}
+
+@PutMapping("/friendAccept")
+public ResponseEntity acceptFriend(@RequestBody Friend friend){
+	
+	friend.setStatus("A");
+	friend = friendDAO.saveOrUpdate(friend);
+	
+	return new ResponseEntity(friend, HttpStatus.OK);
+}
+
+@DeleteMapping("/friends/{fid}")
+public ResponseEntity deleteFriend(@PathVariable int fid) {
+	Friend friend=friendDAO.getByFriendId(fid);
+		if (friend==null) {
+		return new ResponseEntity("No friend found for fid " + fid, HttpStatus.NOT_FOUND);
 	}
+		friendDAO.delete(fid);
+	return new ResponseEntity(fid, HttpStatus.OK);
+
+}
+	
 	
 }
 

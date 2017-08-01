@@ -53,7 +53,7 @@ public class BlogController {
 		return new ResponseEntity<Blog>(blog, HttpStatus.OK);
 	}
 	
-	@GetMapping("/blogName/{blog_name}")
+	@GetMapping("/blogName/{title}")
 	public ResponseEntity<Blog> getblogByBlogName(@PathVariable("title") String title) {
 		Blog blog = blogDAO.getByBlogName(title);
 		if (blog == null) {
@@ -104,7 +104,7 @@ public class BlogController {
 		System.out.println(blog.getTitle());
 		blog.setUserId(user.getUserId());
 		blog.setUser_name(user.getUser_name());
-		blogDAO.save(blog);
+    	blogDAO.save(blog);
 				
 		return new ResponseEntity(blog, HttpStatus.OK);
 	}

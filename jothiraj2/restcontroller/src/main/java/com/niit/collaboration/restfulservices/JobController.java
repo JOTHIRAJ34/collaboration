@@ -17,46 +17,54 @@ import com.niit.collbackend.dao.JobDAO;
 import com.niit.collbackend.model.Job;
 
 @RestController
-public class JobController 
-{
-@Autowired JobDAO jobDAO;
-	
+public class JobController {
+	@Autowired
+	JobDAO jobDAO;
+
+	public JobDAO getJobDAO() {
+		return jobDAO;
+	}
+
+	public void setJobDAO(JobDAO jobDAO) {
+		this.jobDAO = jobDAO;
+	}
+
 	@GetMapping("/Jobs")
 	public List<Job> getJob() {
 		List<Job> jobList = jobDAO.list();
 		return jobList;
 	}
-	
-	@GetMapping("/Job/{jobId}")
-	public ResponseEntity<Job> getJobByID(@PathVariable("jobId") int id) {
 
-		Job job = jobDAO.getByJobId(id);
+	@GetMapping("/Job/{jobid}")
+	public ResponseEntity<Job> getJobByID(@PathVariable("jobid") int jobid) {
+
+		Job job = jobDAO.getByJobId(jobid);
 		if (job == null) {
-			return new ResponseEntity("No Job found for ID " + id, HttpStatus.NOT_FOUND);
+			return new ResponseEntity("No Job found for jobid " + jobid, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Job>(job, HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/Job")
 	public ResponseEntity<Job> save(@RequestBody Job job) {
 		jobDAO.save(job);
 		return new ResponseEntity<Job>(job, HttpStatus.OK);
 	}
-	
+
 	@PutMapping("/job")
 	public ResponseEntity<Job> update(@RequestBody Job job) {
 		jobDAO.saveOrUpdate(job);
 		return new ResponseEntity<Job>(job, HttpStatus.OK);
 	}
-	
-	@DeleteMapping("/job/{jobId}")
-	public ResponseEntity deleteJob(@PathVariable("jobId") int id) {
-		Job job = jobDAO.getByJobId(id);
+
+	@DeleteMapping("/job/{jobid}")
+	public ResponseEntity deleteJob(@PathVariable("jobid") int jobid) {
+		Job job = jobDAO.getByJobId(jobid);
 		if (job == null) {
-			return new ResponseEntity("No Job found for ID " + id, HttpStatus.NOT_FOUND);
+			return new ResponseEntity("No Job found for jobid " + jobid, HttpStatus.NOT_FOUND);
 		}
-		jobDAO.delete(id);
-		return new ResponseEntity("deleted for ID " + id, HttpStatus.OK);
+		jobDAO.delete(jobid);
+		return new ResponseEntity("deleted for jobid " + jobid, HttpStatus.OK);
 
 	}
 
